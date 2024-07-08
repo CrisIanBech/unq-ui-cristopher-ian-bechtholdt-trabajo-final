@@ -1,12 +1,11 @@
-import './App.css'
-import AppIcon from './components/AppIcon/AppIcon'
+import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home/Home'
 
 function App() {
-
   return (
-    <div style={{height: "100%", width: "100%", gap: "16px", display: "flex", flexDirection: "column"}}>
-      <AppIcon />
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />} />
+    </Routes>
   )
 }
 

@@ -1,0 +1,61 @@
+.app-title {
+    color: white;
+    font-size: 72px;
+    padding: 0;
+    z-index: 1;
+    position: relative;
+    letter-spacing: -4px;
+    overflow-wrap: normal;
+    font-weight: 700;
+    word-spacing: 5px;
+    font-family: Mikado, sans-serif;
+}
+
+.app-title::before {
+    content: "PREGUNTADOS";
+    position: absolute;
+    font-size: 72px;
+    padding: 0;
+    z-index: -1;
+    font-weight: 700;
+    left: 0;
+    color: transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+    transform: translate(-10px, 8px);
+    font-family: Mikado, sans-serif;
+    background: linear-gradient(90deg,#1575cf 0%, rgb(140, 20, 225) 40%, rgb(236, 121, 207) 60%, #f42731 60%, #f452af 80%, #f8de41 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-stroke: 10px transparent;
+}
+
+.app-title::after {
+    content: "PREGUNTADOS";
+    position: absolute;
+    font-size: 72px;
+    padding: 0;
+    z-index: -1;
+    letter-spacing: -4px;
+    font-weight: 700;
+    left: 0;
+    right: 0;
+    font-family: Mikado, sans-serif;
+    -webkit-text-stroke-color: blue;
+    -webkit-text-stroke-width: 14px;
+}
+
+@media only screen and (max-width: 768px) {
+    .app-title {
+        font-size: 48px;
+    }
+
+    .app-title::before {
+        font-size: 48px;
+    }
+
+    .app-title::after {
+        font-size: 48px;
+    }
+}
+

@@ -1,5 +1,13 @@
-:root {
-  height: 100%;
-  width: 100%;
-  background-color: aqua;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Mikado, sans-serif;
+  letter-spacing: 0;
+  word-spacing: 0;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
 }
