@@ -1,0 +1,38 @@
+.answer-button {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: white;
+    outline: none;
+    border: none;
+    box-shadow: -2px 2px 2px 0px rgba(187,184,184,1);
+    -webkit-box-shadow: -2px 2px 2px 0px rgba(187,184,184,1);
+    -moz-box-shadow: -2px 2px 2px 0px rgba(187,184,184,1);
+}
+
+.answer-button.enabled {
+    cursor: pointer;
+}
+
+.answer-button.enabled:active {
+    transform: scaleY(0.95) translateY(5%);
+}
+
+.answer-button.enabled:hover {
+    background-color: rgb(244, 244, 244);
+}
+
+.answer-button.selected {
+    background-color: #588f37;
+    color: white;
+}
+
+.answer-button.correct {
+    color: white;
+    background-color: #588f37;
+}
+
+.answer-button.incorrect {
+    color: white;
+    background-color: #f04a33;
+}
