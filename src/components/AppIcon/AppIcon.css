@@ -1,0 +1,46 @@
+.app-icon-container {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+.app-icon {
+ height: 180px;
+ width: 156px;
+ z-index: 2;
+ transform: translateY(-6px);
+}
+
+.app-icon-roulette {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-image: conic-gradient(
+        #f8de41 0deg, #f8de41 51deg,
+        #ff9400 51deg, #ff9400 102deg,
+        #f42731 102deg, #f42731 153deg,
+        #f452af 153deg, #f452af 204deg,
+        #8e45b7 204deg, #8e45b7 255deg,
+        #1575cf 255deg, #1575cf 306deg,
+        #1fc868 255deg, #1fc868 365deg
+       );
+    border-radius: 50%;
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+        transform: rotate(360deg);
+    }
+}
