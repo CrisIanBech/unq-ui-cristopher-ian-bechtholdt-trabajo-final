@@ -12,6 +12,10 @@
   width: 100vw;
 }
 
+body {
+  background-color: #08D2FF;
+}
+
 .title {
   text-transform: uppercase;
   text-align: center;

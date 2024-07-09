@@ -5,4 +5,11 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.round-button:active {
+    background-color: rgb(231, 231, 231);
 }
