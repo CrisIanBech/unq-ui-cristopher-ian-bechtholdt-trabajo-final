@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { answerQuestion, getQuestionsByDifficulty } from "../service/api";
 
-const initialQuestionState = { isLoading: true, question: null, answers: null };
+const initialQuestionState = { isLoading: true, question: null, answers: null, correctQuantity: 0};
 
 const useQuestions = () => {
+  const totalQuestionsQuantity = useRef(0)
   const [questions, setQuestions] = useState(null);
   const [difficulty, setDifficulty] = useState(null);
   const [questionsState, setQuestionsState] = useState(initialQuestionState);
 
   const hasFinished = questions?.length === 0
+  const actualQuestionQuantity = (totalQuestionsQuantity.current - questions?.length) + 1 
 
   const onStart = (difficulty) => {
     setDifficulty(difficulty);
@@ -30,8 +32,9 @@ const useQuestions = () => {
     const actualQuestionId = questionsState.question.id
     const isCorrect = await answerQuestion(actualQuestionId, answerId)
     setQuestionsState(lastState => {
+      const newCorrectQuantity = isCorrect ? lastState.correctQuantity + 1: lastState.correctQuantity
       const answers = lastState.answers.map(answer => answer.id === answerId ? {...answer, isCorrect: isCorrect} : answer)
-      return { ...lastState, answers: answers }
+      return { ...lastState, correctQuantity: newCorrectQuantity, answers: answers }
     })
     goNextQuestion()
   };
@@ -46,17 +49,19 @@ const useQuestions = () => {
 
   const getQuestionsFromAPI = async () => {
     const questions = await getQuestionsByDifficulty(difficulty);
+    totalQuestionsQuantity.current = questions.length
     setQuestions(questions);
   };
 
   const setActualQuestion = (index) => {
     const question = {id: questions[index].id, value: questions[index].question};
     const answers = getAnswersForQuestion(questions[index]);
-    setQuestionsState({
+    setQuestionsState(lastState => ({
+      ...lastState,
       isLoading: false,
       question: question,
       answers: answers,
-    });
+    }));
   };
 
   const getAnswersForQuestion = (question) => {
@@ -78,7 +83,7 @@ const useQuestions = () => {
     getQuestionsFromAPI();
   }, [difficulty]);
 
-  return { onStart, questionsState, onAnswer, currentDifficulty: difficulty, hasFinished };
+  return { onStart, questionsState, onAnswer, currentDifficulty: difficulty, hasFinished, actualQuestionQuantity, totalQuestionsQuantity: totalQuestionsQuantity.current };
 };
 
 export default useQuestions;

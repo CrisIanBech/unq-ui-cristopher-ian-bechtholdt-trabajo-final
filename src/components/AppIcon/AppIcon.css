@@ -1,6 +1,4 @@
 .app-icon-container {
-    width: 250px;
-    height: 250px;
     display: flex;
     justify-content: center;
     position: relative;
@@ -8,10 +6,8 @@
 }
 
 .app-icon {
- height: 180px;
- width: 156px;
- z-index: 2;
- transform: translateY(-6px);
+    z-index: 2;
+    transform: translateY(calc(-10% / 2));
 }
 
 .app-icon-roulette {

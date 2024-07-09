@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DifficultySelector from "../../components/DifficultySelector/DifficultySelector";
+import GameHeader from "../../components/GameHeader/GameHeader";
 import QuestionRound from "../../components/QuestionRound/QuestionRound";
 import useQuestions from "../../hooks/useQuestions";
 import "./Game.css";
@@ -8,8 +9,8 @@ import "./Game.css";
 
 const Game = () => {
   const difficulties = ["easy", "medium", "hard", "extreme"];
-  const { onStart, questionsState, currentDifficulty, onAnswer, hasFinished } = useQuestions()
-  const { isLoading, question, answers } = questionsState
+  const { onStart, questionsState, currentDifficulty, onAnswer, hasFinished, actualQuestionQuantity, totalQuestionsQuantity } = useQuestions()
+  const { isLoading, question, answers, correctQuantity } = questionsState
 
   const isPlaying = !!question && !!answers
 
@@ -36,6 +37,7 @@ const Game = () => {
   if(isPlaying) {
     return (
       <main className="game-page">
+        <GameHeader correctsQuantity={correctQuantity} round={actualQuestionQuantity} maxRounds={totalQuestionsQuantity} />
         <QuestionRound onAnswer={onAnswer} question={question} answers={answers} />
       </main>
     )
