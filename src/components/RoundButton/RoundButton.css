@@ -1,0 +1,8 @@
+.round-button {
+    padding: 8px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}

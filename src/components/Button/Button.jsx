@@ -1,9 +1,16 @@
 import './Button.css'
 
-const Button = ({ content, onClick }) => {
+const variants = {
+  normal: "",
+  validation: "validation"
+}
+
+const Button = ({ content, onClick, variant = variants.normal }) => {
   return (
-    <button className='button' onClick={onClick}>{content}</button>
+    <button className={'button ' + variant} onClick={onClick}>{content}</button>
   )
 }
 
 export default Button
+export { variants }
+
