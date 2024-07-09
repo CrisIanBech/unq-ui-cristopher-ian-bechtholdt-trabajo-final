@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
 import Button, { variants } from '../Button/Button';
@@ -24,10 +25,23 @@ const responsive = {
   }
 };
 
-const DifficultySelector = ({ difficulties }) => {
+const DifficultySelector = ({ difficulties, onDifficultySelected }) => {
+
+  const [actualDifficulty, setActualDifficulty] = useState(difficulties[0])
+
+  const currentDifficultyChanged = (previousSlide, { currentSlide }) => {
+    const newDifficulty = difficulties[currentSlide]
+    setActualDifficulty(newDifficulty)
+  }
+
+  const onContinuePress = () => {
+    onDifficultySelected(actualDifficulty)
+  }
+
   return (
     <>
       <Carousel
+        afterChange={currentDifficultyChanged}
         customLeftArrow={<PreviousButton />}
         customRightArrow={<NextButton />}
         className="difficulty-selector"
@@ -35,7 +49,6 @@ const DifficultySelector = ({ difficulties }) => {
         draggable={false}
         showDots={false}
         responsive={responsive}
-        autoPlaySpeed={1000}
         keyBoardControl={true}
         transitionDuration={500}
       >
@@ -44,7 +57,7 @@ const DifficultySelector = ({ difficulties }) => {
           return <DifficultyOption difficultyInfo={difficultyInfo} key={difficulty} difficulty={difficulty} />
         })}
       </Carousel>
-      <Button variant={variants.validation} isOption={false} content={"CONTINUAR"} />
+      <Button onClick={onContinuePress} variant={variants.validation} isOption={false} content={"CONTINUAR"} />
     </>
   );
 };

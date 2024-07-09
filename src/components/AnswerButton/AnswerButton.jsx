@@ -1,9 +1,11 @@
 import './AnswerButton.css'
 
-const AnswerButton = ({ answer, isSelected, isCorrect, isEnabled, onPress }) => {
+const AnswerButton = ({ answer, onPress }) => {
   
+  const {isSelected, isCorrect, isEnabled, value} = answer 
+
   const onAnswerPressed = () => {
-    onPress(answer)
+    onPress(answer.id)
   }
 
   const enabledStyleName = isEnabled ? " enabled" : ""
@@ -12,7 +14,7 @@ const AnswerButton = ({ answer, isSelected, isCorrect, isEnabled, onPress }) => 
   const styleName = "answer-button" + enabledStyleName + selectedStyleName + correctStyleName
 
   return (
-    <button onClick={onAnswerPressed} disabled={!isEnabled} className={styleName}>{answer}</button>
+    <button onClick={onAnswerPressed} disabled={!isEnabled} className={styleName}>{value}</button>
   )
 }
 

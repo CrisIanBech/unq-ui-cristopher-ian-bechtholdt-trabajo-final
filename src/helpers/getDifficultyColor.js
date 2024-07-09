@@ -19,7 +19,6 @@ const getDifficultyColor = (actual, max) => {
         Math.floor(amarillo[1] * (1 - fraccionDificultad) + rojo[1] * fraccionDificultad),
         Math.floor(amarillo[2] * (1 - fraccionDificultad) + rojo[2] * fraccionDificultad),
       ];
-      console.log(colorInterpolado)
     }
   
     const colorHexadecimal = `#${colorInterpolado.map(color => color.toString(16).padStart(2, '0')).join('')}`;
