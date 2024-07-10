@@ -6,7 +6,8 @@ const initialQuestionState = {
   question: null,
   answers: null,
   correctQuantity: 0,
-  hasError: false,
+  hasErrorAnswering: false,
+  hasErrorQuestions: false
 };
 
 const useQuestions = () => {
@@ -51,7 +52,7 @@ const useQuestions = () => {
         );
         return {
           ...lastState,
-          hasError: false,
+          hasErrorAnswering: false,
           isLoading: false,
           correctQuantity: newCorrectQuantity,
           answers: answers,
@@ -59,7 +60,7 @@ const useQuestions = () => {
       });
       goNextQuestion();
     } catch (error) {
-      setQuestionsState((lastState) => ({ ...lastState, hasError: true }));
+      setQuestionsState((lastState) => ({ ...lastState, hasErrorAnswering: true }));
     }
   };
 
@@ -72,9 +73,13 @@ const useQuestions = () => {
   };
 
   const getQuestionsFromAPI = async () => {
-    const questions = await getQuestionsByDifficulty(difficulty);
-    totalQuestionsQuantity.current = questions.length;
-    setQuestions(questions);
+    try {
+      const questions = await getQuestionsByDifficulty(difficulty);
+      totalQuestionsQuantity.current = questions.length;
+      setQuestions(questions);
+    } catch (error) {
+      setQuestionsState(lastState => ({...lastState, hasErrorQuestions: true}))
+    }
   };
 
   const setActualQuestion = (index) => {
@@ -113,6 +118,11 @@ const useQuestions = () => {
     selectAnswer(selectedAnswer.id)
   }
 
+  const retryQuestions = () => {
+    setQuestionsState(initialQuestionState)
+    getQuestionsFromAPI()
+  }
+
   useEffect(() => {
     if (!questions || hasFinished) return;
     setActualQuestion(0);
@@ -132,7 +142,8 @@ const useQuestions = () => {
     hasFinished,
     actualQuestionQuantity,
     totalQuestionsQuantity: totalQuestionsQuantity.current,
-    retryAnswer
+    retryAnswer,
+    retryQuestions
   };
 };
 

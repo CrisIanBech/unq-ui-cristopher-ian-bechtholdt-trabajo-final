@@ -27,9 +27,10 @@ const Game = () => {
     actualQuestionQuantity,
     totalQuestionsQuantity,
     restart,
-    retryAnswer
+    retryAnswer,
+    retryQuestions
   } = useQuestions();
-  const { isLoading, question, answers, correctQuantity, hasError } = questionsState;
+  const { isLoading, question, answers, correctQuantity, hasErrorAnswering, hasErrorQuestions } = questionsState;
   const [showDialog, setShowDialog] = useState(false);
 
   const isPlaying = !!question && !!answers;
@@ -57,6 +58,14 @@ const Game = () => {
     );
   }
 
+  if(hasErrorQuestions) {
+    return (
+      <main className="game-page align-content">
+        <Error onRetry={retryQuestions} />
+      </main>
+    )
+  }
+
   const onBackPressed = () => {
     setShowDialog(true);
   };
@@ -72,7 +81,7 @@ const Game = () => {
   if (isPlaying) {
     return (
       <main className="game-page">
-        {hasError && <RetryAnswer onRetry={retryAnswer} />}
+        {hasErrorAnswering && <RetryAnswer onRetry={retryAnswer} />}
         {isLoading && <FloatingLoading />}
         {hasFinished && <GameFinished onGoToHome={goHome} onPlayAgainPress={restart} />}
         {showDialog && (
