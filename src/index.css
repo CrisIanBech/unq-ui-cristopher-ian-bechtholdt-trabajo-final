@@ -7,6 +7,25 @@
   word-spacing: 0;
 }
 
+h1::selection, 
+h2::selection, 
+h3::selection, 
+h4::selection, 
+h5::selection, 
+h6::selection, 
+p::selection, 
+span::selection,
+div::selection, 
+button::selection {
+  background-color: transparent;
+}
+
+h1, h2, h3, h4, 
+h5, h6, p, span,
+div, button{
+  cursor: default;
+}
+
 #root {
   height: 100vh;
   width: 100vw;

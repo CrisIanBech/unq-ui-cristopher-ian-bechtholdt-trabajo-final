@@ -1,16 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import { answerQuestion, getQuestionsByDifficulty } from "../service/api";
 
-const initialQuestionState = { isLoading: true, question: null, answers: null, correctQuantity: 0};
+const initialQuestionState = {
+  isLoading: true,
+  question: null,
+  answers: null,
+  correctQuantity: 0,
+  hasError: false,
+};
 
 const useQuestions = () => {
-  const totalQuestionsQuantity = useRef(0)
+  const totalQuestionsQuantity = useRef(0);
   const [questions, setQuestions] = useState(null);
   const [difficulty, setDifficulty] = useState(null);
   const [questionsState, setQuestionsState] = useState(initialQuestionState);
 
-  const hasFinished = questions?.length === 0
-  const actualQuestionQuantity = Math.min((totalQuestionsQuantity.current - questions?.length) + 1, totalQuestionsQuantity.current) 
+  const hasFinished = questions?.length === 0;
+  const actualQuestionQuantity = Math.min(
+    totalQuestionsQuantity.current - questions?.length + 1,
+    totalQuestionsQuantity.current
+  );
 
   const onStart = (difficulty) => {
     setDifficulty(difficulty);
@@ -23,40 +32,58 @@ const useQuestions = () => {
           ? { ...answer, isSelected: true, isEnabled: false }
           : { ...answer, isEnabled: false }
       );
-      return { ...lastState, isLoading: true, answers: answers }
+      return { ...lastState, isLoading: true, answers: answers };
     });
     selectAnswer(answerId);
   };
 
   const selectAnswer = async (answerId) => {
-    const actualQuestionId = questionsState.question.id
-    const isCorrect = await answerQuestion(actualQuestionId, answerId)
-    setQuestionsState(lastState => {
-      const newCorrectQuantity = isCorrect ? lastState.correctQuantity + 1: lastState.correctQuantity
-      const answers = lastState.answers.map(answer => answer.id === answerId ? {...answer, isCorrect: isCorrect} : answer)
-      return { ...lastState, isLoading: false, correctQuantity: newCorrectQuantity, answers: answers }
-    })
-    goNextQuestion()
+    setQuestionsState(lastState => ({...lastState, isLoading: true}))
+    try {
+      const actualQuestionId = questionsState.question.id;
+      const isCorrect = await answerQuestion(actualQuestionId, answerId);
+      setQuestionsState((lastState) => {
+        const newCorrectQuantity = isCorrect
+          ? lastState.correctQuantity + 1
+          : lastState.correctQuantity;
+        const answers = lastState.answers.map((answer) =>
+          answer.id === answerId ? { ...answer, isCorrect: isCorrect } : answer
+        );
+        return {
+          ...lastState,
+          hasError: false,
+          isLoading: false,
+          correctQuantity: newCorrectQuantity,
+          answers: answers,
+        };
+      });
+      goNextQuestion();
+    } catch (error) {
+      setQuestionsState((lastState) => ({ ...lastState, hasError: true }));
+    }
   };
 
   const goNextQuestion = () => {
     setTimeout(() => {
-      const questionsWithoutFirst = [...questions]
-      questionsWithoutFirst.shift()
-      setQuestions(questionsWithoutFirst)
-    }, 2000)
-  }
+      const questionsWithoutFirst = [...questions];
+      questionsWithoutFirst.shift();
+      setQuestions(questionsWithoutFirst);
+    }, 2000);
+  };
 
   const getQuestionsFromAPI = async () => {
     const questions = await getQuestionsByDifficulty(difficulty);
-    totalQuestionsQuantity.current = questions.length
+    totalQuestionsQuantity.current = questions.length;
     setQuestions(questions);
   };
 
   const setActualQuestion = (index) => {
-    const question = {id: questions[index].id, value: questions[index].question};
+    const question = {
+      id: questions[index].id,
+      value: questions[index].question,
+    };
     const answers = getAnswersForQuestion(questions[index]);
-    setQuestionsState(lastState => ({
+    setQuestionsState((lastState) => ({
       ...lastState,
       isLoading: false,
       question: question,
@@ -74,10 +101,15 @@ const useQuestions = () => {
   };
 
   const restart = () => {
-    totalQuestionsQuantity.current = 0
-    setDifficulty(null)
-    setQuestions(null)
-    setQuestionsState(initialQuestionState)
+    totalQuestionsQuantity.current = 0;
+    setDifficulty(null);
+    setQuestions(null);
+    setQuestionsState(initialQuestionState);
+  };
+
+  const retryAnswer = () => {
+    const selectedAnswer = questionsState.answers.some(answer => answer.isSelected)
+    selectAnswer(selectedAnswer.id)
   }
 
   useEffect(() => {
@@ -90,7 +122,17 @@ const useQuestions = () => {
     getQuestionsFromAPI();
   }, [difficulty]);
 
-  return { restart, onStart, questionsState, onAnswer, currentDifficulty: difficulty, hasFinished, actualQuestionQuantity, totalQuestionsQuantity: totalQuestionsQuantity.current };
+  return {
+    restart,
+    onStart,
+    questionsState,
+    onAnswer,
+    currentDifficulty: difficulty,
+    hasFinished,
+    actualQuestionQuantity,
+    totalQuestionsQuantity: totalQuestionsQuantity.current,
+    retryAnswer
+  };
 };
 
 export default useQuestions;

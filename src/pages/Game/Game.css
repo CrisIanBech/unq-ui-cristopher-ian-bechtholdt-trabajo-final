@@ -11,3 +11,8 @@
     gap: 16px;
     flex-direction: column;
 }
+
+.game-page.align-content {
+    justify-content: center;
+    align-items: center;
+}

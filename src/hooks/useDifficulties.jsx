@@ -1,20 +1,31 @@
 import { useEffect, useState } from 'react'
 import { getDifficulties } from '../service/api'
 
+const initialDifficultiesState = {difficulties: null, hasError: false}
+
 const useDifficulties = () => {
-    const [difficulties, setDifficulties] = useState(null)
-    
+    const [difficultiesState, setDifficultiesState] = useState(initialDifficultiesState)
+    const { difficulties, hasError } = difficultiesState
+
     useEffect(() => {
         fetchDifficulties()
     }, [])
 
     const fetchDifficulties = async () => {
-        const difficulties = await getDifficulties()
-        console.log(difficulties);
-        setDifficulties(difficulties)
+        try {
+            const difficulties = await getDifficulties()
+            setDifficultiesState({difficulties: difficulties, hasError: false})
+        } catch (error) {
+            setDifficultiesState({difficulties: null, hasError: true})
+        }
     }
 
-  return ({difficulties})
+    const retry = () => {
+        setDifficultiesState(initialDifficultiesState)
+        fetchDifficulties()
+    }
+
+  return ({difficulties, hasError, retry})
 }
 
 export default useDifficulties
