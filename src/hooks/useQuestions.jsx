@@ -108,7 +108,8 @@ const useQuestions = () => {
   };
 
   const retryAnswer = () => {
-    const selectedAnswer = questionsState.answers.some(answer => answer.isSelected)
+    const selectedAnswer = questionsState.answers.find(answer => answer.isSelected)
+    console.log(selectedAnswer)
     selectAnswer(selectedAnswer.id)
   }
 
