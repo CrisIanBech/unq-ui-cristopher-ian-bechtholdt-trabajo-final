@@ -1,3 +1,4 @@
+import FaceIcon from '../../assets/face.svg'
 import './AppIcon.css'
 
 const sizes = {
@@ -10,7 +11,7 @@ const AppIcon = ({size = sizes.xl}) => {
   return (
     <div style={size.roulette} className='app-icon-container'>
         <div style={size.roulette} className='app-icon-roulette' />
-        <img style={size.head} className='app-icon' src="/PreguntadosIconoCara.png" />
+        <FaceIcon width={size.head.width} height={size.head.height} className='app-icon' />
     </div>
   )
 }
