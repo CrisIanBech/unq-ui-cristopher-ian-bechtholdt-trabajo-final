@@ -1,47 +1,91 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert/Alert";
 import DifficultySelector from "../../components/DifficultySelector/DifficultySelector";
+import GameFinished from "../../components/GameFinished/GameFinished";
 import GameHeader from "../../components/GameHeader/GameHeader";
+import Loading from "../../components/Loading/Loading";
 import QuestionRound from "../../components/QuestionRound/QuestionRound";
 import useQuestions from "../../hooks/useQuestions";
 import "./Game.css";
 
+const goBackTitle = "¿Seguro quieres volver al incio?";
+const goBackMessage = "Se perderá el progreso de la partida";
 
 const Game = () => {
-  const difficulties = ["easy", "medium", "hard", "extreme"];
-  const { onStart, questionsState, currentDifficulty, onAnswer, hasFinished, actualQuestionQuantity, totalQuestionsQuantity } = useQuestions()
-  const { isLoading, question, answers, correctQuantity } = questionsState
+  const {
+    onStart,
+    questionsState,
+    currentDifficulty,
+    onAnswer,
+    hasFinished,
+    actualQuestionQuantity,
+    totalQuestionsQuantity,
+    restart
+  } = useQuestions();
+  const { isLoading, question, answers, correctQuantity } = questionsState;
+  const [showDialog, setShowDialog] = useState(false);
 
-  const isPlaying = !!question && !!answers
+  const isPlaying = !!question && !!answers;
 
-  const navigator = useNavigate()
+  const navigator = useNavigate();
 
-  useEffect(() => {
-    if(hasFinished) {
-      navigator("/")
-    }
-  }, [hasFinished])
-
-  if(!currentDifficulty) {
+  if (!currentDifficulty) {
     return (
       <main className="game-page">
         <h2 className="title">Elige la dificultad</h2>
         <DifficultySelector
           onDifficultySelected={onStart}
           difficulties={difficulties}
-        />    
+        />
       </main>
-    )
+    );
   }
 
-  if(isPlaying) {
+  const onBackPressed = () => {
+    setShowDialog(true);
+  };
+
+  const hideDialog = () => {
+    setShowDialog(false);
+  };
+
+  const goHome = () => {
+    navigator("/");
+  };
+
+  if (isPlaying) {
     return (
       <main className="game-page">
-        <GameHeader correctsQuantity={correctQuantity} round={actualQuestionQuantity} maxRounds={totalQuestionsQuantity} />
-        <QuestionRound onAnswer={onAnswer} question={question} answers={answers} />
+        {hasFinished && <GameFinished onGoToHome={goHome} onPlayAgainPress={restart} />}
+        {showDialog && (
+          <Alert
+            onSecondaryPress={hideDialog}
+            onPrimaryPress={goHome}
+            description={goBackMessage}
+            title={goBackTitle}
+          />
+        )}
+        <GameHeader
+          onBackPressed={onBackPressed}
+          correctsQuantity={correctQuantity}
+          round={actualQuestionQuantity}
+          maxRounds={totalQuestionsQuantity}
+        />
+        <QuestionRound
+          onAnswer={onAnswer}
+          question={question}
+          answers={answers}
+        />
       </main>
-    )
+    );
   }
+
+  return (
+    <main className="game-page">
+      <Loading />
+    </main>
+  )
 };
 
 export default Game;

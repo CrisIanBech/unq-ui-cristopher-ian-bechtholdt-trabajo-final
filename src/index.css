@@ -16,6 +16,38 @@ body {
   background-color: #08D2FF;
 }
 
+.alert-container {
+  padding: 16px;
+  background-color: white;
+  border-radius: 12px;
+  width: fit-content;  
+}
+
+.alert-buttons-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.alert-buttons-container > :nth-child(n) {
+  font-size: 12px;
+}
+
+.alert-background {
+  width: 100vw;
+  left: 0;
+  z-index: 10000;
+  top: 0;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .title {
   text-transform: uppercase;
   text-align: center;

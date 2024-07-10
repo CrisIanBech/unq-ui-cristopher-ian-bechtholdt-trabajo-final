@@ -10,7 +10,7 @@ const useQuestions = () => {
   const [questionsState, setQuestionsState] = useState(initialQuestionState);
 
   const hasFinished = questions?.length === 0
-  const actualQuestionQuantity = (totalQuestionsQuantity.current - questions?.length) + 1 
+  const actualQuestionQuantity = Math.min((totalQuestionsQuantity.current - questions?.length) + 1, totalQuestionsQuantity.current) 
 
   const onStart = (difficulty) => {
     setDifficulty(difficulty);
@@ -73,6 +73,13 @@ const useQuestions = () => {
     return answers;
   };
 
+  const restart = () => {
+    totalQuestionsQuantity.current = 0
+    setDifficulty(null)
+    setQuestions(null)
+    setQuestionsState(initialQuestionState)
+  }
+
   useEffect(() => {
     if (!questions || hasFinished) return;
     setActualQuestion(0);
@@ -83,7 +90,7 @@ const useQuestions = () => {
     getQuestionsFromAPI();
   }, [difficulty]);
 
-  return { onStart, questionsState, onAnswer, currentDifficulty: difficulty, hasFinished, actualQuestionQuantity, totalQuestionsQuantity: totalQuestionsQuantity.current };
+  return { restart, onStart, questionsState, onAnswer, currentDifficulty: difficulty, hasFinished, actualQuestionQuantity, totalQuestionsQuantity: totalQuestionsQuantity.current };
 };
 
 export default useQuestions;

@@ -6,6 +6,7 @@
     background-size: auto;
     display: flex;
     padding: 16px 32px;
+    position: relative;
     gap: 16px;
     flex-direction: column;
 }
