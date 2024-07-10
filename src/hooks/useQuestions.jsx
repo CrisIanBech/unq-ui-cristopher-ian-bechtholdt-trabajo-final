@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { save } from "../helpers/historyDAO";
 import { answerQuestion, getQuestionsByDifficulty } from "../service/api";
 
 const initialQuestionState = {
@@ -12,6 +13,7 @@ const initialQuestionState = {
 
 const useQuestions = () => {
   const totalQuestionsQuantity = useRef(0);
+  const initTime = useRef(0)
   const [questions, setQuestions] = useState(null);
   const [difficulty, setDifficulty] = useState(null);
   const [questionsState, setQuestionsState] = useState(initialQuestionState);
@@ -20,7 +22,7 @@ const useQuestions = () => {
   const actualQuestionQuantity = Math.min(
     totalQuestionsQuantity.current - questions?.length + 1,
     totalQuestionsQuantity.current
-  );
+  ) || 1;
 
   const onStart = (difficulty) => {
     setDifficulty(difficulty);
@@ -77,10 +79,23 @@ const useQuestions = () => {
       const questions = await getQuestionsByDifficulty(difficulty);
       totalQuestionsQuantity.current = questions.length;
       setQuestions(questions);
+      initTime.current = new Date().getTime()
+      saveGameState()
     } catch (error) {
       setQuestionsState(lastState => ({...lastState, hasErrorQuestions: true}))
     }
   };
+
+  const saveGameState = () => {
+    const gameState = {
+      id: initTime.current,
+      correctAnswered: questionsState.correctQuantity,
+      difficulty: difficulty,
+      total: totalQuestionsQuantity.current,
+      roundsPlayed: actualQuestionQuantity 
+    }
+    save(gameState)
+  }
 
   const setActualQuestion = (index) => {
     const question = {
@@ -107,6 +122,7 @@ const useQuestions = () => {
 
   const restart = () => {
     totalQuestionsQuantity.current = 0;
+    initTime.current = 0;
     setDifficulty(null);
     setQuestions(null);
     setQuestionsState(initialQuestionState);
@@ -132,6 +148,11 @@ const useQuestions = () => {
     if (!difficulty) return;
     getQuestionsFromAPI();
   }, [difficulty]);
+
+  useEffect(() => {
+    if(questionsState.isLoading | !questionsState.question) return;
+    saveGameState()
+  }, [questionsState])
 
   return {
     restart,

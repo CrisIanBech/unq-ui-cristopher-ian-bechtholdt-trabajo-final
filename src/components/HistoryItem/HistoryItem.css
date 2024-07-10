@@ -1,0 +1,9 @@
+.history-item {
+    display: flex;
+    flex-direction: row;
+    padding: 32px 32px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0px black;
+    justify-content: space-between;
+}
