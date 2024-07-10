@@ -45,7 +45,7 @@ const DifficultySelector = ({ difficulties, onDifficultySelected }) => {
         customLeftArrow={<PreviousButton />}
         customRightArrow={<NextButton />}
         className="difficulty-selector"
-        swipeable={false}
+        swipeable={true}
         draggable={false}
         showDots={false}
         responsive={responsive}
