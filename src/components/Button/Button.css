@@ -19,3 +19,14 @@
     background-color: #cb852f;
 }
 
+.button.validation {
+    text-shadow: 1px 1px 0 #588f37;
+    background-color: #65a441;
+    box-shadow: 0px 4px 0 #588f37;
+}
+
+.button.validation:active {
+    box-shadow: none;
+    transform: translateY(4px);
+    background-color: #588f37;
+}

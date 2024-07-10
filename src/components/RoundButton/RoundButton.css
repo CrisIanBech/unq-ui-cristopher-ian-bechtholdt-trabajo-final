@@ -1,0 +1,15 @@
+.round-button {
+    padding: 8px;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.round-button:active {
+    background-color: rgba(120, 120, 120, 0.2);
+}

@@ -7,7 +7,72 @@
   word-spacing: 0;
 }
 
+h1::selection, 
+h2::selection, 
+h3::selection, 
+h4::selection, 
+h5::selection, 
+h6::selection, 
+p::selection, 
+span::selection,
+div::selection, 
+button::selection {
+  background-color: transparent;
+}
+
+h1, h2, h3, h4, 
+h5, h6, p, span,
+div, button{
+  cursor: default;
+}
+
 #root {
   height: 100vh;
   width: 100vw;
+}
+
+body {
+  background-color: #08D2FF;
+}
+
+.alert-container {
+  padding: 16px;
+  background-color: white;
+  border-radius: 12px;
+  width: fit-content;  
+}
+
+.alert-buttons-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.alert-buttons-container > :nth-child(n) {
+  font-size: 12px;
+}
+
+.alert-background {
+  width: 100vw;
+  left: 0;
+  z-index: 10000;
+  top: 0;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  font-family: Mikado, sans-serif;
+  font-size: 48px;
+  text-shadow: 1px 1px 2px black;
 }

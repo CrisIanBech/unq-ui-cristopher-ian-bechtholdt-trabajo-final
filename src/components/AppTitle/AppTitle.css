@@ -37,12 +37,10 @@
     padding: 0;
     z-index: -1;
     letter-spacing: -4px;
-    font-weight: 700;
+    font-weight: bolder;
     left: 0;
     right: 0;
     font-family: Mikado, sans-serif;
-    -webkit-text-stroke-color: blue;
-    -webkit-text-stroke-width: 14px;
 }
 
 @media only screen and (max-width: 768px) {

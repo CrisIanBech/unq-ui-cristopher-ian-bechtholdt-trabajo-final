@@ -1,0 +1,16 @@
+.difficulty-selector {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.carrousel-button {
+    position: absolute;
+}
+
+.carrousel-button.left {
+    left: 0;
+}
+
+.carrousel-button.right {
+    right: 0;
+}
