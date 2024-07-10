@@ -8,6 +8,9 @@
     padding-left: 32px;
     padding-right: 32px;
     padding-top: 0px;
+    background-image: url("../../assets/background-pattern-3.svg");
+    background-repeat: repeat;
+    background-size: auto;
 }
 
 .history-page > :nth-child(2) {
@@ -17,6 +20,7 @@
 .history-page-header > :first-child {
     position: absolute;
     left: 0;
+    align-self: center;
 }
 
 .history-page-header {
@@ -27,8 +31,14 @@
     padding-bottom: 16px;
 }
 
-.history-page-header > :nth-child(2) {
+.history-page-title {
     flex-grow: 1;
-    color: white;
     text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .history-page {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
 }

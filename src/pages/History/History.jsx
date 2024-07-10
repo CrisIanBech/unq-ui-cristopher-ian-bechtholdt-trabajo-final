@@ -20,7 +20,7 @@ const History = () => {
         <RoundButton onClick={goBack}>
           <BackIcon />
         </RoundButton>
-        <h1>Historial</h1>
+        <h1 className='history-page-title title'>Historial</h1>
       </div>
       <HistoryList history={history} />
     </main>
