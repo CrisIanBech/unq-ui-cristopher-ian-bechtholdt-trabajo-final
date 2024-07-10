@@ -23,7 +23,7 @@ const useQuestions = () => {
           ? { ...answer, isSelected: true, isEnabled: false }
           : { ...answer, isEnabled: false }
       );
-      return { ...lastState, answers: answers }
+      return { ...lastState, isLoading: true, answers: answers }
     });
     selectAnswer(answerId);
   };
@@ -34,7 +34,7 @@ const useQuestions = () => {
     setQuestionsState(lastState => {
       const newCorrectQuantity = isCorrect ? lastState.correctQuantity + 1: lastState.correctQuantity
       const answers = lastState.answers.map(answer => answer.id === answerId ? {...answer, isCorrect: isCorrect} : answer)
-      return { ...lastState, correctQuantity: newCorrectQuantity, answers: answers }
+      return { ...lastState, isLoading: false, correctQuantity: newCorrectQuantity, answers: answers }
     })
     goNextQuestion()
   };
