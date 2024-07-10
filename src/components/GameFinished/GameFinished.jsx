@@ -11,7 +11,7 @@ const GameFinished = ({onPlayAgainPress, onGoToHome}) => {
             <Confetti>
                 <TrophyIcon className='trophy-icon' />
             </Confetti>
-            <div className='alert-buttons-container'>
+            <div className='alert-buttons-container game-finished'>
                 <Button onClick={onGoToHome} content={"Volver al inicio"} />
                 <Button onClick={onPlayAgainPress} content={"Volver a jugar"} variant={variants.validation} />
             </div>
