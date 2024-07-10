@@ -10,6 +10,7 @@
     overflow: hidden;
     gap: 16px;
     flex-direction: column;
+    z-index: -1000;
 }
 
 .game-page.align-content {

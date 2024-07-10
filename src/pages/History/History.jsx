@@ -1,6 +1,10 @@
+import Question from "../../components/Question/Question"
+
 const History = () => {
   return (
-    <div>History</div>
+    <main>
+      <Question question={"HOLAA"} />
+    </main>
   )
 }
 
