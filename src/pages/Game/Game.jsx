@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert/Alert";
 import DifficultySelector from "../../components/DifficultySelector/DifficultySelector";
 import Error from "../../components/Error/Error";
-import FloatingLoading from "../../components/FloatingLoading/FloatingLoading";
 import GameFinished from "../../components/GameFinished/GameFinished";
 import GameHeader from "../../components/GameHeader/GameHeader";
 import Loading from "../../components/Loading/Loading";
@@ -82,7 +81,6 @@ const Game = () => {
     return (
       <main className="game-page">
         {hasErrorAnswering && <RetryAnswer onRetry={retryAnswer} />}
-        {isLoading && <FloatingLoading />}
         {hasFinished && <GameFinished onGoToHome={goHome} onPlayAgainPress={restart} />}
         {showDialog && (
           <Alert
@@ -100,6 +98,7 @@ const Game = () => {
           maxRounds={totalQuestionsQuantity}
         />
         <QuestionRound
+          isLoading={isLoading}
           onAnswer={onAnswer}
           question={question}
           answers={answers}
