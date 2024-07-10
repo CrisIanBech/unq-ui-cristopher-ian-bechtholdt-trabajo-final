@@ -1,0 +1,58 @@
+.history-item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 32px 32px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0px black;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+}
+
+.history-item-points-info {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.history-item-date {
+    width: fit-content;
+    font-weight: bold;
+}
+
+.history-item-correct-answered-container {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.history-item-correct-answered {
+    color: green;
+}
+
+.history-item-left {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 14px;
+    color: rgb(163, 163, 163);
+    margin-right: 8px;
+    margin-bottom: 4px;
+}
+
+.history-item-difficulty {
+    text-transform: capitalize;
+    flex-grow: 1;
+    text-align: end;
+}
+
+@media only screen and (max-width: 768px) {
+    .history-item-points-info {
+        flex-direction: column;
+    }
+    .history-item {
+        padding: 32px 16px;
+    }
+}
