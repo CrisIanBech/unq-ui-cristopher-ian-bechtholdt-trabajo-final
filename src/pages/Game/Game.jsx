@@ -16,7 +16,11 @@ const goBackTitle = "¿Seguro quieres volver al incio?";
 const goBackMessage = "Se perderá el progreso de la partida";
 
 const Game = () => {
-  const { difficulties, hasError: hasErrorDifficulties, retry: retryDifficulties } = useDifficulties()
+  const {
+    difficulties,
+    hasError: hasErrorDifficulties,
+    retry: retryDifficulties,
+  } = useDifficulties();
   const {
     onStart,
     questionsState,
@@ -27,21 +31,28 @@ const Game = () => {
     totalQuestionsQuantity,
     restart,
     retryAnswer,
-    retryQuestions
+    retryQuestions,
   } = useQuestions();
-  const { isLoading, question, answers, correctQuantity, hasErrorAnswering, hasErrorQuestions } = questionsState;
+  const {
+    isLoading,
+    question,
+    answers,
+    correctQuantity,
+    hasErrorAnswering,
+    hasErrorQuestions,
+  } = questionsState;
   const [showDialog, setShowDialog] = useState(false);
 
   const isPlaying = !!question && !!answers;
 
   const navigator = useNavigate();
 
-  if(hasErrorDifficulties) {
+  if (hasErrorDifficulties) {
     return (
       <main className="game-page align-content">
         <Error onRetry={retryDifficulties} />
       </main>
-    )
+    );
   }
 
   if (!currentDifficulty && difficulties) {
@@ -57,12 +68,12 @@ const Game = () => {
     );
   }
 
-  if(hasErrorQuestions) {
+  if (hasErrorQuestions) {
     return (
       <main className="game-page align-content">
         <Error onRetry={retryQuestions} />
       </main>
-    )
+    );
   }
 
   const onBackPressed = () => {
@@ -81,7 +92,14 @@ const Game = () => {
     return (
       <main className="game-page">
         {hasErrorAnswering && <RetryAnswer onRetry={retryAnswer} />}
-        {hasFinished && <GameFinished onGoToHome={goHome} onPlayAgainPress={restart} />}
+        {hasFinished && (
+          <GameFinished
+            correct={correctQuantity}
+            total={totalQuestionsQuantity}
+            onGoToHome={goHome}
+            onPlayAgainPress={restart}
+          />
+        )}
         {showDialog && (
           <Alert
             onSecondaryPress={hideDialog}
@@ -111,7 +129,7 @@ const Game = () => {
     <main className="game-page">
       <Loading />
     </main>
-  )
+  );
 };
 
 export default Game;
