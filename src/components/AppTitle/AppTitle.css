@@ -24,7 +24,7 @@
     padding-right: 10px;
     transform: translate(-10px, 8px);
     font-family: Mikado, sans-serif;
-    background: linear-gradient(90deg,#1575cf 0%, rgb(140, 20, 225) 40%, rgb(236, 121, 207) 60%, #f42731 60%, #f452af 80%, #f8de41 100%);
+    background: linear-gradient(90deg,#1575cf 0%, rgb(140, 20, 225) 40%, rgb(236, 121, 207) 60%, #f42731, #f8de41 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-stroke: 10px transparent;
@@ -38,6 +38,7 @@
     z-index: -1;
     letter-spacing: -4px;
     font-weight: bolder;
+    text-shadow: 3px 3px 0 black;
     left: 0;
     right: 0;
     font-family: Mikado, sans-serif;
