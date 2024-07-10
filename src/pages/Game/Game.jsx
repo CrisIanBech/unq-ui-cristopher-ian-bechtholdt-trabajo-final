@@ -93,6 +93,7 @@ const Game = () => {
           />
         )}
         <GameHeader
+          gameDifficulty={currentDifficulty}
           onBackPressed={onBackPressed}
           correctsQuantity={correctQuantity}
           round={actualQuestionQuantity}

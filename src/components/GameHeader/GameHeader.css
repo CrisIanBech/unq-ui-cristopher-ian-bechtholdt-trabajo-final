@@ -15,6 +15,11 @@
     justify-content: space-between;
 }
 
+.game-header > :nth-child(n) {
+    flex-grow: 1;
+    min-width: 33%;
+}
+
 .game-header-correct-quantity-container {
     display: flex;
     align-items: center;
@@ -34,8 +39,28 @@
     gap: 8px;
 }
 
-.game-header-round-counter {
+.game-header-round-counter, .game-header-difficulty {
     font-size: 18px;
     font-weight: normal;
-    color: grey;
+    color: rgb(163, 163, 163);
+    font-weight: 600;
+    text-transform: uppercase;
+    align-content: center;
+    text-align: center;
 }
+
+.game-header-info-game {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: flex-end;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .game-header-info-game {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
