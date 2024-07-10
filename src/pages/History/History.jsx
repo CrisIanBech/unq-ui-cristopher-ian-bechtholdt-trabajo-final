@@ -18,7 +18,7 @@ const History = () => {
     <main className="history-page">
       <div className="history-page-header">
         <RoundButton onClick={goBack}>
-          <BackIcon />
+          <BackIcon className='history-page-check-icon previous-button' />
         </RoundButton>
         <h1 className='history-page-title title'>Historial</h1>
       </div>

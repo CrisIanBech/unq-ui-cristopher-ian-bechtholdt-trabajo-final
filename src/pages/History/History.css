@@ -17,6 +17,11 @@
     flex-grow: 1;
 }
 
+.history-page-check-icon {
+    height: 48px;
+    width: 48px;
+}
+
 .history-page-header > :first-child {
     position: absolute;
     left: 0;
