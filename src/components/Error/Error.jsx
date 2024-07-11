@@ -6,7 +6,7 @@ const Error = ({ onRetry }) => {
   return (
     <div className='error-container'>
         <AppIcon size={sizes.s} />
-        <p>Ha ocurrido un error</p>
+        <p className='error-container-message'>Ha ocurrido un error</p>
         <Button onClick={onRetry} content='Reintentar' variant={variants.validation} />
     </div>
   )
